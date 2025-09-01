@@ -1,0 +1,19 @@
+{
+  "name": "ingest-service",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "dependencies": {
+    "@sentry/node": "^10.7.0",
+    "ajv-formats": "^3.0.1",
+    "fastify": "^4.27.2",
+    "kafkajs": "^2.2.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+package analytics;
+
+service AnalyticsQuery {
+  rpc GetTimeseries (TimeseriesRequest) returns (TimeseriesResponse);
+}
+
+message TimeseriesRequest {
+  string tenant_id = 1;
+  string metric = 2;
+}
+
+message TimeseriesResponse {
+  repeated TimeseriesPoint points = 1;
+}
+
+message TimeseriesPoint {
+  string time = 1;
+  int64 value = 2;
+}

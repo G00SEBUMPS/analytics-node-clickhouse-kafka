@@ -1,0 +1,21 @@
+{
+  "name": "transform-service",
+  "version": "1.0.0",
+  "description": "Consumes events from Kafka and writes to ClickHouse",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsx index.ts",
+    "dev": "tsx watch index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@clickhouse/client": "^1.12.1",
+    "@sentry/node": "^10.7.0",
+    "kafkajs": "^2.2.4",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0"
+  }
+}
