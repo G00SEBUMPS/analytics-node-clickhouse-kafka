@@ -2,18 +2,33 @@
   "name": "ingest-service",
   "version": "1.0.0",
   "main": "index.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node index.ts"
+    "build": "tsc",
+    "dev": "tsx watch index.ts",
+    "start": "tsx index.ts"
   },
   "dependencies": {
+    "@adminjs/fastify": "^4.2.0",
+    "@adminjs/sequelize": "^4.1.1",
+    "@fastify/compress": "^8.1.0",
+    "@fastify/cookie": "^9.4.0",
     "@sentry/node": "^10.7.0",
+    "@types/ioredis": "^4.28.10",
     "ajv-formats": "^3.0.1",
-    "fastify": "^4.27.2",
-    "kafkajs": "^2.2.4"
+    "dotenv": "^17.2.2",
+    "fastify": "^5.6.0",
+    "ioredis": "^5.7.0",
+    "kafkajs": "^2.2.4",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.4.5"
   }
 }
