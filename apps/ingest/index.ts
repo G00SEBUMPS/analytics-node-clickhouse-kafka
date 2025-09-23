@@ -2,20 +2,20 @@
 import 'dotenv/config';
 import Fastify from 'fastify';
 import { Kafka, CompressionTypes } from 'kafkajs';
-import Ajv from 'ajv';
+import {Ajv} from 'ajv';
 import addFormats from "ajv-formats";
 import fastifyCompress from '@fastify/compress';
-import { Logger } from './logger';
-import { Event, EventBatch } from './types';
+import { Logger } from './logger.js';
+import { Event, EventBatch } from './types.js';
 import { 
   FastifyRequest as Request, 
   FastifyReply as Reply, 
   RouteHandlerMethod 
 } from 'fastify';
-import { authenticate, redis } from './auth';
-import { captureError } from './error-handler';
+import { authenticate, redis } from './auth.js';
+import { captureError } from './error-handler.js';
 import './sentry'; // Initialize Sentry
-import { RedisHealth } from './redis-health';
+import { RedisHealth } from './redis-health.js';
 
 // Type definitions for route handlers
 interface EventBody {
@@ -61,7 +61,7 @@ const ajv = new Ajv({
 });
 
 // Add formats (date-time, email, etc.)
-addFormats(ajv);
+addFormats.default(ajv);
 
 // Custom error formatting
 function formatValidationErrors(errors: any[]) {
@@ -112,7 +112,7 @@ const batchSchema = {
           location: { type: 'object' },
           commerce: { type: 'object' },
           interaction: { type: 'object' },
-          experiments: { type: 'array', items: { type: 'string' } },
+          experiments: { type: 'object' },
           extras: { type: 'object' }
         },
         required: ['event_id', 'event_type', 'event_name', 'event_time', 'user_id', 'session_id', 'page_name']
@@ -129,8 +129,7 @@ const validateBatch = ajv.compile(batchSchema);
 fastify.register(fastifyCompress);
 
 // Import admin setup
-import { setupAdmin } from './admin/admin.config';
-
+import { setupAdmin } from './admin/admin.config.js';
 // Single event ingestion endpoint
 fastify.post<{ Body: Event }>('/ingest', async (request: Request<{ Body: Event }>, reply: Reply) => {
   try {
