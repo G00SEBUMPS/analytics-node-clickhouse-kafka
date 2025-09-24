@@ -372,7 +372,7 @@ interface Event {
 
   // Additional Contexts (stored as raw JSON)
   interaction?: Record<string, any>;
-  experiments?: string[];
+  experiments?: object;
   extras?: Record<string, any>;
 }
 
@@ -392,7 +392,6 @@ async function start() {
       { operation: 'kafkaConnect' }
     );
     logger.info('Connected to Kafka');
-    
     // Subscribe to topic
     await withErrorHandling(
       () => consumer.subscribe({ topic: 'events.raw.v1', fromBeginning: true }),
@@ -404,7 +403,6 @@ async function start() {
       eachMessage: async ({ topic, partition, message }) => {
         try {
           const event = JSON.parse(message.value?.toString() || '{}') as Event;
-          
           logger.info('Processing event', { 
             event_id: event.event_id,
             event_name: event.event_name,
@@ -520,7 +518,7 @@ async function start() {
           if (error instanceof Error) {
             captureError(error, {
               operation: 'processMessage',
-              event,
+              // event,
               kafka: {
                 topic,
                 partition,
